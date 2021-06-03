@@ -36,14 +36,14 @@ interface Post {
 }
 
 interface PostProps {
-  publication: Post;
+  post: Post;
   nextPost?: Post;
   prevPost?: Post;
   preview: boolean;
 }
 
 export default function Post({
-  publication,
+  post,
   nextPost,
   prevPost,
   preview,
@@ -56,28 +56,28 @@ export default function Post({
   return (
     <>
       <Head>
-        <title>{publication.data.title} | Bloggprosjekt</title>
+        <title>{post.data.title} | Bloggprosjekt</title>
       </Head>
       <Header />
       <div className={styles.banner}>
-        <img src={publication.data.banner.url} alt="Post" />
+        <img src={post.data.banner.url} alt="Post" />
       </div>
       <main className={commonStyles.container}>
-        <h1 className={styles.title}>{publication.data.title}</h1>
+        <h1 className={styles.title}>{post.data.title}</h1>
         <div className={styles.info}>
           <div>
             <FiCalendar size={20} color="#D7D7D7" />
-            <span>{publication.first_publication_date}</span>
+            <span>{post.first_publication_date}</span>
           </div>
           <div>
             <FiUser size={20} color="#D7D7D7" />
-            <span>{publication.data.author}</span>
+            <span>{post.data.author}</span>
           </div>
           <div>
             <FiClock size={20} color="#D7D7D7" />
             <span>
               {Math.ceil(
-                publication.data.content.reduce((totalContent, item) => {
+                post.data.content.reduce((totalContent, item) => {
                   return (
                     totalContent +
                     item.body.reduce((total, paragraph) => {
@@ -90,8 +90,8 @@ export default function Post({
             </span>
           </div>
         </div>
-        <p>* bearbeitet am {publication.last_publication_date}</p>
-        {publication.data.content.map(content => (
+        <p>* bearbeitet am {post.last_publication_date}</p>
+        {post.data.content.map(content => (
           <div
             key={`${content.heading}, ${Date.now()}`}
             className={styles.content}
@@ -141,21 +141,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
     [Prismic.predicates.at('document.type', 'publication')],
     {
       fetch: [
-        'publication.uid',
-        'publication.title',
-        'publication.subtitle',
-        'publication.author',
-        'publication.banner',
-        'publication.content',
+        'post.uid',
+        'post.title',
+        'post.subtitle',
+        'post.author',
+        'post.banner',
+        'post.content',
       ],
       pageSize: 20,
     }
   );
 
   return {
-    paths: posts.results.map(publication => {
+    paths: posts.results.map(post => {
       return {
-        params: { slug: publication.uid },
+        params: { slug: post.uid },
       };
     }),
     fallback: true,
@@ -202,7 +202,7 @@ export const getStaticProps: GetStaticProps = async ({
     }
   );
 
-  const publication = {
+  const post = {
     uid: response.uid,
     href: response.href,
     first_publication_date: format(
@@ -228,7 +228,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   return {
     props: {
-      publication,
+      post,
       nextPost: nextPost.results[0] || null,
       prevPost: prevPost.results[0] || null,
       preview,
