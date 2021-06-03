@@ -1,1 +1,44 @@
-// TODO
+.container {
+  max-width: 721px;
+  margin: 0 auto;
+  transition: filter 0.2s;
+
+  >p {
+    margin-top: 1rem;
+  }
+
+  .morePosts {
+    background: transparent;
+    color: var(--pink);
+    font-size: 1.375rem;
+    font-weight: 800;
+    border: 0;
+    cursor: pointer;
+
+    &:hover{
+      filter: brightness(0.75);
+    }
+  }
+}
+
+.preview {
+  margin: auto;
+  background-color: var(--gray-50);
+  color: var(--gray-900);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 58px;
+  width: 700px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-top: 5rem;
+  transition: border 0.2s, color 0.2s, background-color 0.2s;
+
+  &:hover {
+    border: 2px solid var(--pink);
+    background-color: var(--gray-900);
+    color: var(--pink);
+  }
+}
