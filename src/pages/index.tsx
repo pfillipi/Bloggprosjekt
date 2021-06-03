@@ -120,15 +120,15 @@ export const getStaticProps: GetStaticProps = async ({
   const prismic = getPrismicClient();
 
   const postsResponse = await prismic.query(
-    [Prismic.predicates.at('document.type', 'post')],
+    [Prismic.predicates.at('document.type', 'publication')],
     {
       fetch: [
-        'post.first_publication_date',
-        'post.title',
-        'post.subtitle',
-        'post.banner',
-        'post.author',
-        'post.content',
+        'publication.first_publication_date',
+        'publication.title',
+        'publication.subtitle',
+        'publication.banner',
+        'publication.author',
+        'publication.content',
       ],
       pageSize: 2,
       orderings: '[document.first_publication_date',
@@ -138,15 +138,15 @@ export const getStaticProps: GetStaticProps = async ({
 
   const { next_page } = postsResponse;
 
-  const results: Post[] = postsResponse.results.map(post => {
+  const results: Post[] = postsResponse.results.map(publication => {
     return {
-      uid: post.uid,
-      first_publication_date: post.first_publication_date,
+      uid: publication.uid,
+      first_publication_date: publication.first_publication_date,
       data: {
-        title: post.data.title,
-        subtitle: post.data.subtitle,
-        author: post.data.author,
-        banner: post.data.banner,
+        title: publication.data.title,
+        subtitle: publication.data.subtitle,
+        author: publication.data.author,
+        banner: publication.data.banner,
       },
     };
   });

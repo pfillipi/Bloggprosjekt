@@ -42,7 +42,7 @@ interface PostProps {
   preview: boolean;
 }
 
-export default function Post({
+export default function Publication({
   post,
   nextPost,
   prevPost,
@@ -56,22 +56,22 @@ export default function Post({
   return (
     <>
       <Head>
-        <title>{post.data.title} | Bloggprosjekt</title>
+        <title>{publication.data.title} | Bloggprosjekt</title>
       </Head>
       <Header />
       <div className={styles.banner}>
-        <img src={post.data.banner.url} alt="Post" />
+        <img src={publication.data.banner.url} alt="Post" />
       </div>
       <main className={commonStyles.container}>
         <h1 className={styles.title}>{post.data.title}</h1>
         <div className={styles.info}>
           <div>
             <FiCalendar size={20} color="#D7D7D7" />
-            <span>{post.first_publication_date}</span>
+            <span>{publication.first_publication_date}</span>
           </div>
           <div>
             <FiUser size={20} color="#D7D7D7" />
-            <span>{post.data.author}</span>
+            <span>{publication.data.author}</span>
           </div>
           <div>
             <FiClock size={20} color="#D7D7D7" />
