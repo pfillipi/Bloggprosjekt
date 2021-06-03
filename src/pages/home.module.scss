@@ -1,1 +1,46 @@
-// TODO
+.postsList {
+  margin-bottom: 4rem;
+
+  .post {
+    list-style: none;
+
+    & + .post {
+      margin-top: 48px;
+    }
+
+    .title {
+      color: var(--gray-50);
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      margin-bottom: 1.5rem;
+    }
+
+    .info {
+      display: flex;
+
+      .infoContent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & + .infoContent {
+          margin-left: 24px;
+        }
+      }
+
+      span {
+        font-size: 0.85rem;
+        margin-left: 8px;
+      }
+    }
+
+    transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.75);
+    }
+  }
+}
