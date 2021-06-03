@@ -36,14 +36,14 @@ interface Post {
 }
 
 interface PostProps {
-  post: Post;
+  publication: Post;
   nextPost?: Post;
   prevPost?: Post;
   preview: boolean;
 }
 
-export default function Publication({
-  post,
+export default function Post({
+  publication,
   nextPost,
   prevPost,
   preview,
@@ -63,7 +63,7 @@ export default function Publication({
         <img src={publication.data.banner.url} alt="Post" />
       </div>
       <main className={commonStyles.container}>
-        <h1 className={styles.title}>{post.data.title}</h1>
+        <h1 className={styles.title}>{publication.data.title}</h1>
         <div className={styles.info}>
           <div>
             <FiCalendar size={20} color="#D7D7D7" />
@@ -77,7 +77,7 @@ export default function Publication({
             <FiClock size={20} color="#D7D7D7" />
             <span>
               {Math.ceil(
-                post.data.content.reduce((totalContent, item) => {
+                publication.data.content.reduce((totalContent, item) => {
                   return (
                     totalContent +
                     item.body.reduce((total, paragraph) => {
@@ -90,8 +90,8 @@ export default function Publication({
             </span>
           </div>
         </div>
-        <p>* bearbeitet am {post.last_publication_date}</p>
-        {post.data.content.map(content => (
+        <p>* bearbeitet am {publication.last_publication_date}</p>
+        {publication.data.content.map(content => (
           <div
             key={`${content.heading}, ${Date.now()}`}
             className={styles.content}
@@ -138,24 +138,24 @@ export default function Publication({
 export const getStaticPaths: GetStaticPaths = async () => {
   const prismic = getPrismicClient();
   const posts = await prismic.query(
-    [Prismic.predicates.at('document.type', 'post')],
+    [Prismic.predicates.at('document.type', 'publication')],
     {
       fetch: [
-        'post.uid',
-        'post.title',
-        'post.subtitle',
-        'post.author',
-        'post.banner',
-        'post.content',
+        'publication.uid',
+        'publication.title',
+        'publication.subtitle',
+        'publication.author',
+        'publication.banner',
+        'publication.content',
       ],
       pageSize: 20,
     }
   );
 
   return {
-    paths: posts.results.map(post => {
+    paths: posts.results.map(publication => {
       return {
-        params: { slug: post.uid },
+        params: { slug: publication.uid },
       };
     }),
     fallback: true,
@@ -172,7 +172,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   const prismic = getPrismicClient();
 
-  const response = await prismic.getByUID('post', String(slug), {
+  const response = await prismic.getByUID('publication', String(slug), {
     ref: ref || null,
   });
 
@@ -202,7 +202,7 @@ export const getStaticProps: GetStaticProps = async ({
     }
   );
 
-  const post = {
+  const publication = {
     uid: response.uid,
     href: response.href,
     first_publication_date: format(
@@ -228,7 +228,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   return {
     props: {
-      post,
+      publication,
       nextPost: nextPost.results[0] || null,
       prevPost: prevPost.results[0] || null,
       preview,
