@@ -7,12 +7,26 @@
 :root {
   --white: #FFFFFF;
 
-  --gray-50: #F8F8F8;
-  --gray-100: #D7D7D7;
-  --gray-200: #BBBBBB;
+  --gray-10: #F8F8F8;
+  --gray-200: #D7D7D7;
+  --gray-300: #BBBBBB;
   --gray-900: #282C34;
 
   --pink: #FF57B2;
+
+  --blue-800: #1A1D23;
+}
+
+@media (max-width: 1080px) {
+  html{
+    font-size: 93.75%;
+  }
+}
+
+@media(max-width: 720px){
+  html{
+    font-size: 87.5%;
+  }
 }
 
 body {
@@ -20,7 +34,7 @@ body {
   margin-bottom: 5rem;
 }
 
-h1, h2, h3, h4, h5, h6, p, span, a, li {
+h1, h2, h3, h4, h5, h6, p, a, li {
   font-family: 'Inter', sans-serif;
   color: var(--gray-200);
   font-weight: 400;
@@ -38,14 +52,27 @@ h2 {
   font-size: 2.25rem;
 }
 
-p {
-  font-size: 2.25rem;
+span{
+  color: var(--gray-300);
+  font-weight: 400;
 }
 
-p {
-  font-size: 1.125rem;
+button{
+  cursor: pointer;
 }
 
 a {
   text-decoration: none;
+
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+}
+
+p {
+  text-align: justify;
+  line-height: 1.575rem;
+  color: var(--gray-100);
 }

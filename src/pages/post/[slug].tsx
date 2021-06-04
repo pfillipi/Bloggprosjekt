@@ -147,7 +147,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     first_publication_date: response.first_publication_date,
     data: {
       ...response.data,
-      constent: response.data.content.map(item => {
+      content: response.data.content.map(item => {
         return {
           heading: item.heading,
           body: item.body,
